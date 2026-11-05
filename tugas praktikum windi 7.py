@@ -1,71 +1,104 @@
-## Soal 1: Manipulasi List
-#DIBERIKAN LIST BERIKUT
-kendaraan = ["motor","mobil","sepeda","bus"]
+"""Tugas Praktikum 7 - Manipulasi List (Soal 1-4).
 
-# a. Tambahkan "truk" di akhir list
-kendaraan.append("truk")
-print(kendaraan)
+Hasil keluaran sama seperti versi awal, tetapi tiap soal dibungkus
+fungsi, tidak mengandalkan indeks hardcoded, dan aman diimpor
+(tidak ada kode yang jalan saat import; lihat test_tugas_praktikum7.py).
+"""
 
-# b. sisipkan "becak" pada index ke-1
-kendaraan.insert(1, "becak")
-print(kendaraan)
 
-# c. Hapus data yang berada paling belakang dari list tersebut
-kendaraan.pop()
-print(kendaraan)
+def soal1_manipulasi_list():
+    kendaraan = ["motor", "mobil", "sepeda", "bus"]
 
-# d. Ubah elemen "sepeda" menjadi "skuter"
-#"sepeda" sekarang berada di indexs ke-3 setelah proses insert sebelumnya
-kendaraan[3] = "skuter"
-print(kendaraan)
+    # a. Tambahkan "truk" di akhir list
+    kendaraan.append("truk")
+    print(kendaraan)
 
-# e. Tampilkan informasi jumlah total data di dalam list tersebut
-panjang_kendaraan = len(kendaraan)
-print(f"Jumlah total data : {panjang_kendaraan}")
+    # b. Sisipkan "becak" pada index ke-1
+    kendaraan.insert(1, "becak")
+    print(kendaraan)
 
-#Soal 2:Operasi Nilai pada List angka
-#DIBERIKAN LIST BERIKUT
-angka = [75, 80, 90, 75, 85, 100, 65]
+    # c. Hapus data yang berada paling belakang dari list tersebut
+    kendaraan.pop()
+    print(kendaraan)
 
-# a. Cari tahu di indeks ke berapa skor 100 berada
-index_100 = angka.index(100)
-print(f"Angka 100 berada di index ke: {index_100}")
+    # d. Ubah elemen "sepeda" menjadi "skuter"
+    # Cari posisinya dulu; indeks hardcoded (3) rapuh kalau proses
+    # insert di atas berubah.
+    if "sepeda" in kendaraan:
+        kendaraan[kendaraan.index("sepeda")] = "skuter"
+    else:
+        print("Elemen 'sepeda' tidak ditemukan, tidak ada yang diubah.")
+    print(kendaraan)
 
-# b. Hitung ada berapa banyak siswa yang mendapatkan skor 75
-jumlah_75 = angka.count(75)
-print(f"Banyak siswa yang mendapatkan skor 75: {jumlah_75}")
+    # e. Tampilkan informasi jumlah total data di dalam list tersebut
+    panjang_kendaraan = len(kendaraan)
+    print(f"Jumlah total data : {panjang_kendaraan}")
+    return kendaraan
 
-# c. Urutkan List tersebut dari niali terkecil hingga terbesar
-print(f"Data sebelum diurutkan: \n{angka}")
-angka.sort()
-print(f"Data setelah diurutkan dari yang terkecil: \n{angka}")
 
-# d. Balikan urutan list yang sudah diurutkan (terbesar ke terkecil)
-angka.reverse()
-print(f"Dsta setelah diurutkan dari yang terbesar:\n{angka}")
+def soal2_operasi_nilai():
+    angka = [75, 80, 90, 75, 85, 100, 65]
 
-#Soal 3: Penggabungan List Menu
-# menu_utama = ["Nasi Goreng", "Mie Ayanm"]
-# menu_tambahan ["Kerupuk", "Es Teh"]
-# Gabungkan menu_tambahan ke dalam menu_utama menggunakan fungsi, kemudian tampilkan hasil dari data gabungan tersebut.
-menu_utama = ["Nasi Goreng", "Mie Ayam"]
-menu_tambahan = ["Kerupuk", "Es Teh"]
-print(f"List sebelum dibagikan \n{menu_utama} dan {menu_tambahan}")
-print(f"List sebelum digunakan \n{menu_utama} dan {menu_tambahan}")
-menu_utama.extend(menu_tambahan)
-print(f"List setelah digabungkan \n{menu_utama}")
+    # a. Cari tahu di indeks ke berapa skor 100 berada
+    # list.index() melempar ValueError kalau 100 tidak ada.
+    try:
+        index_100 = angka.index(100)
+        print(f"Angka 100 berada di index ke: {index_100}")
+    except ValueError:
+        print("Angka 100 tidak ditemukan dalam list.")
 
-#Soal 4:Akses dan Perulangan Nested List(List Bersarang)
-# Diberikan data nested List berupaa informasi nama barang dan harganya:
-data_barang = [["Buku", 5000], ["Pensil", 2000], ["Penggaris", 3000]]
+    # b. Hitung ada berapa banyak siswa yang mendapatkan skor 75
+    jumlah_75 = angka.count(75)
+    print(f"Banyak siswa yang mendapatkan skor 75: {jumlah_75}")
 
-# a. Tampilkan harga dari "Pensil" (Baris index 1, kolom index 1)
-pensil = data_barang[1][1]
-print(f"nama barang dan harga: {data_barang[1][0]} {pensil}")
+    # c. Urutkan list dari nilai terkecil hingga terbesar
+    print(f"Data sebelum diurutkan: \n{angka}")
+    angka.sort()
+    print(f"Data setelah diurutkan dari yang terkecil: \n{angka}")
 
-# b. Gunakan perulangan untuk menampilkan format "Nama: [nama barang], Harga: [harga]"
-for i in data_barang:
-    print(f"Nama barang\t: {i[0]}")
-    print(f"Harga barang\t: {i[1]}")
+    # d. Balikan urutan list yang sudah diurutkan (terbesar ke terkecil)
+    angka.reverse()
+    print(f"Data setelah diurutkan dari yang terbesar:\n{angka}")
+    return angka
 
-    
+
+def soal3_gabung_menu():
+    menu_utama = ["Nasi Goreng", "Mie Ayam"]
+    menu_tambahan = ["Kerupuk", "Es Teh"]
+    print(f"List sebelum digabungkan \n{menu_utama} dan {menu_tambahan}")
+    menu_utama.extend(menu_tambahan)
+    print(f"List setelah digabungkan \n{menu_utama}")
+    return menu_utama
+
+
+def soal4_nested_list():
+    # [[nama barang, harga], ...]
+    data_barang = [["Buku", 5000], ["Pensil", 2000], ["Penggaris", 3000]]
+
+    # a. Tampilkan harga dari "Pensil"
+    # Cari berdasarkan nama, bukan indeks baris hardcoded [1][1].
+    pensil = next((harga for nama, harga in data_barang if nama == "Pensil"), None)
+    if pensil is None:
+        print("Barang 'Pensil' tidak ditemukan.")
+    else:
+        print(f"nama barang dan harga: Pensil {pensil}")
+
+    # b. Perulangan untuk menampilkan nama dan harga tiap barang
+    for i, barang in enumerate(data_barang):
+        if not isinstance(barang, list) or len(barang) != 2:
+            print(f"Data ke-{i + 1} tidak valid, dilewati: {barang}")
+            continue
+        print(f"Nama barang\t: {barang[0]}")
+        print(f"Harga barang\t: {barang[1]}")
+    return data_barang
+
+
+def main():
+    soal1_manipulasi_list()
+    soal2_operasi_nilai()
+    soal3_gabung_menu()
+    soal4_nested_list()
+
+
+if __name__ == "__main__":
+    main()
